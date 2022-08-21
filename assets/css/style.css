@@ -1,23 +1,20 @@
-
-
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: rgb(85, 85, 85);
-    font-family: sans-serif;
+  background-color: rgb(148, 181, 196);
+  font-family: sans-serif;
+
 
 }
 .container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid gray;
-    background-color: white;
-    border-radius: 10px;
+  margin: 20px auto;
+  max-width: 600px;
+  border: 2px solid gray;
+  background-color: white;
+  border-radius: 6px;
 }
 
 /* ******************/
@@ -25,25 +22,55 @@ body {
 /********************/
 
 .startScreen {
-    position: absolute;
-    display: none;
-    background: white;
-    width: 100%;
-    height: 100%;
-    border: 2px solid gray;
+  position: absolute;
+  display: none;
+  background: white;
+  width: 100%;
+  height: 100%;
+  border: 2px solid gray;
 }
 
-.startBtn {
-    text-decoration: none;
-    background-color: navy;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.btn {
+  text-decoration: none;
+  background-color: navy;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
 }
+.btn:active {
+  background-color: pink;
+}
+
+
+.main {
+  padding: 0 10px; 
+}
+
+.rule{
+list-style-position: inside;
+padding: 4px 0;
+}
+
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+  padding: 10px 20px;
+  border-bottom: 2px solid gray;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 /* ******************/
@@ -52,156 +79,129 @@ body {
 
 
 
-/*top of container decoration styles */
-.Title-bar {
-    display: flex;
-    width: 100%;
-    border-bottom: 2px solid gray;
+.choices {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-/* .title {
-    text-align: center;
-    margin: 10px 0;
-    border: 2px solid gray;
-    width: fit-content;
-} */
-
-.circle {
-    width: 8px;
-    height: 8px;
-    border: 2px solid gray;
-    border-radius: 50%;
-    margin: 3px;
+.choice {
+  display: flex;
+  flex: 1 1 100%;
+  list-style: none;
+  border: 2px solid navy;
+  margin: 5px 10px;
+  cursor: pointer;
 }
 
-/* main body styles */
-.quiz {
-    display: flex;
-    flex-wrap: wrap;
+.choiceLabel {
+  width: 100%;
 }
 
-.info{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 0 0 10px 0;
-    padding: 10px 20px;
-    border-bottom: 2px solid gray;
+.choice-letter {
+  color: white;
+  background-color: navy;
+  padding: 10px 20px;
 }
 
-.question {
-
+.choice-text {
+  padding: 10px 5px;
+  color: navy;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
 }
-.counter {
 
+.choice:hover {
+  background-color: pink;
+}
+
+.choice-input {
+  display: none;
 }
 
 
-.answer {
-    flex: 1 1 100%;
-    list-style: none;
-    border: 2px solid gray;
-    border-radius: 4px;
-    margin: 5px 10px;
-    padding: 10px;
-    cursor: pointer;
-}
+.selected {
+  background-color: lightblue;
 
-.answer:hover {
-    background-color: pink;
+  
+  
 }
-
 .correct {
-    color: #155724;
-    background: #d4edda;
-    border: 2px solid #c3e6cb;
-
+  color: #155724;
+  background: #d4edda;
+  border: 2px solid #c3e6cb;
 }
 
 .incorrect {
-    color: #721c24;
-    background: #f8d7da;
-    border: 2px solid #f5c6cb;
-
+  color: #721c24;
+  background: #f8d7da;
+  border: 2px solid #f5c6cb;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* footer styles */
 .footer {
-    display: flex;
-    justify-content: space-between;
-    border-top: 2px solid gray;
-    margin: 10px 0 0 0;
-    padding: 10px;
-    
+  display: flex;
+  justify-content: space-between;
+  border-top: 2px solid gray;
+  margin: 10px 0 0 0;
+  padding: 10px;
 }
 
 .timer {
-    display: flex;
-    background-color: navy;
-    border-radius: 4px;
-
+  display: flex;
+  background-color: navy;
+  border-radius: 4px;
 }
 
 .time-text {
-    color: white;
-    padding: 10px 10px;
-    border-radius: 4px;
-
+  color: white;
+  padding: 10px 10px;
+  border-radius: 4px;
 }
 .count-down {
-    color: navy;
-    margin: 5px;
-    padding: 5px 10px;
-    background-color: white;
-    border-radius: 4px;
-
+  color: navy;
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: white;
+  border-radius: 4px;
 }
 
-
 .submit {
-    text-decoration: none;
-    background-color: navy;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
+  text-decoration: none;
+  background-color: navy;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
 }
 
 .submit:hover {
-    background-color: pink;
+  background-color: pink;
 }
-
 
 /* ******************/
 /* SCORE SCREEN */
 /********************/
 
-.scoreScreen {
-    position: absolute;
-    display: none;
-    background: white;
-    width: 100%;
-    height: 100%;
-    border: 2px solid gray;
-    top: 0;
-    border-radius: 10px;
-}
-
-.scoreinfo {
-    margin: 0 0 10px 0;
-    padding: 10px 20px;
-    border-bottom: 2px solid gray;
-}
-
-.scores {
-
-}
 
 .list-item {
-    flex: 1 1 100%;
-    border: 2px solid gray;
-    border-radius: 4px;
-    margin: 5px 10px;
-    padding: 10px;
-    list-style-position: inside;
+  flex: 1 1 100%;
+  border: 2px solid gray;
+  margin: 5px 10px;
+  padding: 10px;
+  list-style-position: inside;
 }
