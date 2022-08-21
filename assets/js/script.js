@@ -3,7 +3,7 @@ var question = document.querySelector("#question");
 var choices = document.querySelectorAll(".choice-text");
 var choicesArr = Array.from(choices);
 var inputs = document.querySelectorAll(".choice-input");
-const btn = document.querySelector(".btn");
+const btnNextQuestion = document.querySelector(".nextQuestion");
 
 var currentQuestion = {};
 var score = 0;
@@ -13,6 +13,7 @@ var selectedChoice;
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 5;
 
+// array of questions, choices, and the correct answer contained in their respective object
 var questions = [
   {
     question: "What is 2 + 2?",
@@ -56,6 +57,7 @@ var questions = [
   },
 ];
 
+// start game function: resets the question counter and score each time the quiz resets
 var startGame = function () {
   questionCounter = 0;
   score = 0;
@@ -64,53 +66,80 @@ var startGame = function () {
   resetClasses();
 };
 
+// getNewQuestion gets a random question from the questions array and increments the question counter
 var getNewQuestion = function () {
+  btnNextQuestion.removeEventListener("click", getNewQuestion);
+  btnNextQuestion.classList.add('disabled')
+
+  resetClasses();
+  for (var input of inputs) {
+    input.addEventListener("click", selectHandler);
+  }
   questionCounter++;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
   question.innerText = currentQuestion.question;
 
+  // populates the innertext of choices with the corresponding choices from the question array
   choices.forEach((choice) => {
     var number = choice.dataset["number"];
     choice.innerText = currentQuestion["choice" + number];
   });
 
+  // removes the current question from the list of available questions so it isn't repeated
   availableQuestions.splice(questionIndex, 1);
 };
 
-
+// adds a listener to each radio button and runs the function selectedChoice when one of the radio buttons is clicked
 for (const input of inputs) {
-  input.addEventListener("change", selectChoice);
+  input.addEventListener("click", selectHandler);
 }
-function selectChoice(e) {
+
+// selectHandler: first it removes the selected class from all of the available choices, then it adds the class ('.selected') to the checked radio button; finally, it set the dataset number of the selected choice to the variable selectedChoice.
+function selectHandler(e) {
   for (const input of inputs) {
     input.nextElementSibling.classList.remove("selected");
     if (this.checked) {
       this.nextElementSibling.classList.add("selected");
-      selectedChoice = this.dataset.number;
     }
+    selectedChoice = parseInt(this.dataset.number);
   }
 }
-
+// resets all classes and radio buttons for next question
 var resetClasses = function () {
-  for (let i; i < inputs.length; i++) {
-    console.log(inputs[0]);
-    inputs[i].checked = false;
-    choices[i].classList.remove('selected')
+  for (const input of inputs) {
+    input.checked = false;
+    input.nextElementSibling.classList.remove(
+      "selected",
+      "correct",
+      "incorrect"
+    );
   }
-
 };
 
-
+// when submit button is clicked, the score is incremented, the classes/radio buttons are reset,
 var submit = function () {
   if (selectedChoice == currentQuestion.answer) {
-    console.log("true");
     score++;
-    console.log(inputs);
-    resetClasses();
-    getNewQuestion();
+    choices[selectedChoice - 1].classList.add("correct");
+
+    for (let input of inputs) {
+      input.removeEventListener("click", selectHandler);
+    }
+
+    btnNextQuestion.addEventListener("click", getNewQuestion);
+    btnNextQuestion.classList.remove('disabled')
+  } else if (selectedChoice == undefined) {
+    window.alert("please select an answer");
   } else {
-    console.log("false");
-  }
+    choices[currentQuestion.answer - 1].classList.add("correct");
+    choices[selectedChoice - 1].classList.add("incorrect");
+    for (let input of inputs) {
+      input.removeEventListener("click", selectHandler);
+    }
+    btnNextQuestion.addEventListener("click", getNewQuestion);
+    btnNextQuestion.classList.remove('disabled')
+  }  console.log(score)
 };
+
 startGame();
