@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="assets/css/style.css" class="style" />
+    <script defer src="assets/js/script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="question" id="question"></h1>
+        <h1 class="questionCounter" id="question-counter">1/4</h1>
+      </header>
+      <ul class="choices">
+        <li class="choice">
+          <p class="choice-letter">A</p>
+          
+          <input id='a'type='radio'name='choice-input'class="choice-input" data-number="1"></input>
+          <label for='a'class="choice-text "data-number="1">text goes here</label>
+
+        </li>
+
+        <li class="choice">
+          <p class="choice-letter">B</p>
+          <input id='b'type='radio'name='choice-input'class="choice-input " data-number="2"></input>
+          <label for='b'class="choice-text"data-number="2"></label>
+
+        </li>
+
+        <li class="choice">
+          <p class="choice-letter">C</p>
+          <input id='c'type='radio'name='choice-input'class="choice-input" data-number="3"></input>
+          <label for='c'class="choice-text"data-number="3"></label>
+
+        </li>
+
+        <li class="choice">
+          <p class="choice-letter">D</p>
+          <input id='d'type='radio' name='choice-input' class="choice-input" data-number="4"></input>
+          <label for='d'class="choice-text"data-number="4"></label>
+
+        </li>
+      </ul>
+      <footer class="footer">
+        <div class="timer">
+          <p class="time-text">Time Remaining:</p>
+          <p class="count-down"></p>
+        </div>
+        <div class="buttons">
+        <button class="btn submit" >Submit</button>
+        <button class="btn nextQuestion disabled">Next Question</button>
+      </div>
+      </footer>
+    </div>
+
+  </body>
+</html>
