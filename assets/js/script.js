@@ -1,9 +1,14 @@
 // query selectors
 var question = document.querySelector("#question");
 var choices = document.querySelectorAll(".choice-text");
-var choicesArr = Array.from(choices);
 var inputs = document.querySelectorAll(".choice-input");
 const btnNextQuestion = document.querySelector(".nextQuestion");
+const btnSubmit = document.querySelector('.submit')
+var counterText = document.getElementById('question-counter')
+var countDownEl = document.querySelector('.count-down')
+
+const startingMinutes = 5;
+let time = startingMinutes * 60;
 
 var currentQuestion = {};
 var score = 0;
@@ -68,14 +73,21 @@ var startGame = function () {
 
 // getNewQuestion gets a random question from the questions array and increments the question counter
 var getNewQuestion = function () {
-  btnNextQuestion.removeEventListener("click", getNewQuestion);
-  btnNextQuestion.classList.add('disabled')
+  
+ if (availableQuestions.length == 0 || time == 0) {
+    return redirect()  }
+
+  btnSubmit.addEventListener('click', submit)
 
   resetClasses();
+  
+  
   for (var input of inputs) {
     input.addEventListener("click", selectHandler);
   }
   questionCounter++;
+  counterText.innerText = 'question ' + questionCounter + '/' + MAX_QUESTIONS;
+  
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
   question.innerText = currentQuestion.question;
@@ -88,6 +100,8 @@ var getNewQuestion = function () {
 
   // removes the current question from the list of available questions so it isn't repeated
   availableQuestions.splice(questionIndex, 1);
+ 
+ 
 };
 
 // adds a listener to each radio button and runs the function selectedChoice when one of the radio buttons is clicked
@@ -107,6 +121,9 @@ function selectHandler(e) {
 }
 // resets all classes and radio buttons for next question
 var resetClasses = function () {
+  btnNextQuestion.removeEventListener("click", getNewQuestion);
+  btnNextQuestion.classList.add('disabled');
+  selectedChoice = undefined;
   for (const input of inputs) {
     input.checked = false;
     input.nextElementSibling.classList.remove(
@@ -116,8 +133,22 @@ var resetClasses = function () {
     );
   }
 };
+// adds a timer to the quiz 
+var timer = setInterval(updateCountdown, 1000);
 
-// when submit button is clicked, the score is incremented, the classes/radio buttons are reset,
+function updateCountdown() {
+  const minutes = Math.floor(time / 60);
+  var seconds = time % 60;
+  seconds = seconds < 10 ? '0' + seconds : seconds
+  countDownEl.innerText = minutes +':' + seconds;
+  time--
+  if (time === -1){
+  clearInterval(timer);
+  countDownEl.innerText = 'TIMES UP!'
+  }
+}
+
+// when submit button is clicked, the score is incremented, the classes/radio buttons are reset, and time is removed from the timer for incorrect answers
 var submit = function () {
   if (selectedChoice == currentQuestion.answer) {
     score++;
@@ -126,20 +157,28 @@ var submit = function () {
     for (let input of inputs) {
       input.removeEventListener("click", selectHandler);
     }
+    btnSubmit.removeEventListener('click', submit)
 
     btnNextQuestion.addEventListener("click", getNewQuestion);
     btnNextQuestion.classList.remove('disabled')
   } else if (selectedChoice == undefined) {
     window.alert("please select an answer");
   } else {
+    time = time - 10;
     choices[currentQuestion.answer - 1].classList.add("correct");
     choices[selectedChoice - 1].classList.add("incorrect");
     for (let input of inputs) {
       input.removeEventListener("click", selectHandler);
     }
+    btnSubmit.removeEventListener('click', submit);
     btnNextQuestion.addEventListener("click", getNewQuestion);
     btnNextQuestion.classList.remove('disabled')
-  }  console.log(score)
+  }  
 };
+
+var redirect = function() {
+  localStorage.setItem('score',score)
+  window.location.href = '/end.html'  
+}
 
 startGame();

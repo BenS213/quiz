@@ -140,7 +140,10 @@ padding: 4px 0;
 
 
 
-
+.questionCounter {
+  text-align: right;
+  font-size: 25px;
+}
 
 
 
@@ -196,6 +199,25 @@ padding: 4px 0;
   background-color: gray;
   pointer-events: none;
 }
+
+
+/* ******************/
+/* END SCREEN */
+/********************/
+
+form  h2{
+  padding: 10px;
+}
+form input {
+  height: 20px;
+  width: 200px;
+  margin: 10px;
+}
+
+
+
+
+
 
 /* ******************/
 /* SCORE SCREEN */
