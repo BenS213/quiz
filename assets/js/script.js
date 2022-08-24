@@ -178,7 +178,7 @@ var submit = function () {
 
 var redirect = function() {
   localStorage.setItem('score',score)
-  window.location.href = '/end.html'  
+  window.location.href = './end.html'  
 }
 
 startGame();
